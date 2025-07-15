@@ -23,13 +23,16 @@ export class CategoriesModule {
    * @param limit - Maximum number of members to return (default: 10)
    * @returns Array of category members
    */
-  async getCategoryMembers(category: string, limit: number = 10): Promise<CategoryMember[]> {
+  async getCategoryMembers(
+    category: string,
+    limit: number = 10,
+  ): Promise<CategoryMember[]> {
     const data = await this.client.makeRequest<CategoryMembersResponse>({
       action: "query",
       format: "json",
       list: "categorymembers",
       cmtitle: `Category:${category}`,
-      cmlimit: limit.toString()
+      cmlimit: limit.toString(),
     });
 
     return data.query.categorymembers;
@@ -45,7 +48,7 @@ export class CategoriesModule {
       action: "query",
       format: "json",
       list: "allcategories",
-      aclimit: limit.toString()
+      aclimit: limit.toString(),
     });
 
     return data.query.allcategories.map((cat: any) => cat.category);
@@ -64,7 +67,7 @@ export class CategoriesModule {
       list: "categorymembers",
       cmtitle: `Category:${category}`,
       cmtype: "subcat",
-      cmlimit: "500"
+      cmlimit: "500",
     });
 
     return data.query.categorymembers;

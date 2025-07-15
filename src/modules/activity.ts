@@ -22,7 +22,7 @@ export class ActivityModule {
       format: "json",
       list: "recentchanges",
       rclimit: limit.toString(),
-      rcprop: "user|comment|timestamp|title|ids|sizes|flags|tags"
+      rcprop: "user|comment|timestamp|title|ids|sizes|flags|tags",
     });
 
     return data.query.recentchanges.map((rc: any) => ({
@@ -36,7 +36,7 @@ export class ActivityModule {
       user: rc.user,
       timestamp: rc.timestamp,
       comment: rc.comment,
-      tags: rc.tags || []
+      tags: rc.tags || [],
     }));
   }
 
@@ -51,7 +51,7 @@ export class ActivityModule {
       format: "json",
       list: "watchlist",
       wllimit: limit.toString(),
-      wlprop: "ids|title|timestamp|comment|user|flags"
+      wlprop: "ids|title|timestamp|comment|user|flags",
     });
 
     return data.query.watchlist;

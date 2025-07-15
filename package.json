@@ -1,16 +1,39 @@
 {
   "name": "fandom-sdk",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Unofficial TypeScript SDK for querying Fandom's MediaWiki-based APIs.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup src/index.ts --dts --format esm,cjs --out-dir dist",
-    "dev": "tsup src/index.ts --watch"
+    "dev": "tsup src/index.ts --watch",
+    "format": "prettier --write ."
   },
-  "keywords": ["fandom", "mediawiki", "api", "sdk", "typescript"],
+  "keywords": [
+    "fandom",
+    "mediawiki",
+    "api",
+    "sdk",
+    "typescript"
+  ],
   "author": "Jonas <@builtbyjonas>",
   "license": "BSL-1.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/builtbyjonas/fandom-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/builtbyjonas/fandom-sdk/issues"
+  },
+  "homepage": "https://github.com/builtbyjonas/fandom-sdk#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
     "node-fetch": "^3.3.2"
   },
