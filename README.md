@@ -56,7 +56,11 @@ const recentChanges = await sdk.activity.getRecentChanges(20);
 ### Legacy API (backward compatible)
 
 ```ts
-import { getFullPageDetails, getCategoryMembers, searchPages } from "fandom-sdk";
+import {
+  getFullPageDetails,
+  getCategoryMembers,
+  searchPages,
+} from "fandom-sdk";
 
 const data = await getFullPageDetails("sonic", "Sonic_the_Hedgehog");
 console.log(data.title); // "Sonic the Hedgehog"
@@ -96,6 +100,7 @@ console.log(pageDetails.images[0]);
 ### Types
 
 All TypeScript interfaces are exported for type safety:
+
 - `PageDetails`, `ImageInfo`, `CategoryMember`
 - `SearchResult`, `UserInfo`, `RecentChange`
 - And more...

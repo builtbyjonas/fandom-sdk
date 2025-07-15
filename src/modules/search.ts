@@ -29,7 +29,7 @@ export class SearchModule {
       list: "search",
       format: "json",
       srsearch: query,
-      srlimit: limit.toString()
+      srlimit: limit.toString(),
     });
 
     return data.query.search;
@@ -42,14 +42,18 @@ export class SearchModule {
    * @param limit - Maximum number of results to return (default: 5)
    * @returns Array of search results
    */
-  async searchInNamespace(query: string, namespace: number, limit: number = 5): Promise<SearchResult[]> {
+  async searchInNamespace(
+    query: string,
+    namespace: number,
+    limit: number = 5,
+  ): Promise<SearchResult[]> {
     const data = await this.client.makeRequest<SearchResponse>({
       action: "query",
       list: "search",
       format: "json",
       srsearch: query,
       srnamespace: namespace.toString(),
-      srlimit: limit.toString()
+      srlimit: limit.toString(),
     });
 
     return data.query.search;
@@ -66,7 +70,7 @@ export class SearchModule {
       action: "opensearch",
       format: "json",
       search: query,
-      limit: limit.toString()
+      limit: limit.toString(),
     });
 
     return data[1] || [];

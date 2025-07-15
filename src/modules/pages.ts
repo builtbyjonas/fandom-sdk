@@ -1,5 +1,10 @@
 import { FandomApiClient } from "../client/api-client.js";
-import { PageDetails, ImageInfo, PageInfo, RevisionInfo } from "../types/index.js";
+import {
+  PageDetails,
+  ImageInfo,
+  PageInfo,
+  RevisionInfo,
+} from "../types/index.js";
 
 interface PageDetailsResponse {
   parse: {
@@ -42,7 +47,7 @@ export class PagesModule {
       format: "json",
       page: title,
       prop: "text|wikitext|displaytitle|sections|categories|links|templates|images|externallinks|langlinks|revid|iwlinks|properties",
-      formatversion: "2"
+      formatversion: "2",
     });
 
     if (!data.parse) throw new Error("Page not found");
@@ -63,7 +68,7 @@ export class PagesModule {
       langlinks: data.parse.langlinks,
       revid: data.parse.revid,
       iwlinks: data.parse.iwlinks,
-      properties: data.parse.properties
+      properties: data.parse.properties,
     };
   }
 
@@ -80,7 +85,7 @@ export class PagesModule {
 
     for (let i = 0; i < imageNames.length; i += chunkSize) {
       const chunk = imageNames.slice(i, i + chunkSize);
-      const titles = chunk.map(name => `File:${name}`).join("|");
+      const titles = chunk.map((name) => `File:${name}`).join("|");
 
       try {
         const data = await this.client.makeRequest<any>({
@@ -89,45 +94,34 @@ export class PagesModule {
           titles,
           prop: "imageinfo",
           iiprop: "url|size|width|height|timestamp|user|comment",
-          formatversion: "2"
+          formatversion: "2",
         });
 
         const pages = data.query.pages;
-        const imageInfoMap = new Map<string, any>();
-        
+
         for (const page of pages) {
           if (page.title && page.imageinfo?.length > 0) {
             const name = page.title.replace(/^File:/, "");
-            imageInfoMap.set(name, page.imageinfo[0]);
-          }
-        }
-
-        for (const name of chunk) {
-          const info = imageInfoMap.get(name);
-          if (info) {
+            const info = page.imageinfo[0];
             allImageInfo.push({
               name,
               url: info.url,
-              type: name.split('.').pop()?.toUpperCase() || 'UNKNOWN',
+              type: name.split(".").pop()?.toUpperCase() || "UNKNOWN",
               size: info.size,
               width: info.width,
               height: info.height,
               timestamp: info.timestamp,
               user: info.user,
-              comment: info.comment
+              comment: info.comment,
             });
-          } else {
-            // Fallback for missing images
-            const fallbackInfo = await this.getSingleImageInfo(name);
-            allImageInfo.push(fallbackInfo);
           }
         }
       } catch (error) {
-        console.warn(`Failed to fetch image details for chunk starting at ${i}:`, error);
-        // Fallback to individual requests
-        const fallbackPromises = chunk.map(name => this.getSingleImageInfo(name));
-        const fallbackResults = await Promise.all(fallbackPromises);
-        allImageInfo.push(...fallbackResults);
+        console.warn(
+          `Failed to fetch image details for chunk starting at ${i}:`,
+          error,
+        );
+        // Skip this chunk entirely - no fallback
       }
     }
 
@@ -137,9 +131,9 @@ export class PagesModule {
   /**
    * Gets information for a single image file
    * @param name - The image file name
-   * @returns Image information object
+   * @returns Image information object or null if not found
    */
-  private async getSingleImageInfo(name: string): Promise<ImageInfo> {
+  private async getSingleImageInfo(name: string): Promise<ImageInfo | null> {
     try {
       const data = await this.client.makeRequest<any>({
         action: "query",
@@ -147,7 +141,7 @@ export class PagesModule {
         titles: `File:${name}`,
         prop: "imageinfo",
         iiprop: "url|size|width|height|timestamp|user|comment",
-        formatversion: "2"
+        formatversion: "2",
       });
 
       const page = data.query?.pages?.[0];
@@ -156,25 +150,20 @@ export class PagesModule {
         return {
           name,
           url: info.url,
-          type: name.split('.').pop()?.toUpperCase() || 'UNKNOWN',
+          type: name.split(".").pop()?.toUpperCase() || "UNKNOWN",
           size: info.size,
           width: info.width,
           height: info.height,
           timestamp: info.timestamp,
           user: info.user,
-          comment: info.comment
+          comment: info.comment,
         };
       }
     } catch (error) {
       console.warn(`Failed to fetch individual image info for ${name}:`, error);
     }
 
-    // Final fallback - return basic info
-    return {
-      name,
-      url: `https://${this.client.getWiki()}.fandom.com/wiki/File:${encodeURIComponent(name)}`,
-      type: name.split('.').pop()?.toUpperCase() || 'UNKNOWN'
-    };
+    return null;
   }
 
   /**
@@ -188,7 +177,7 @@ export class PagesModule {
       format: "json",
       titles: titles.join("|"),
       prop: "info",
-      formatversion: "2"
+      formatversion: "2",
     });
 
     return data.query.pages.map((page: any) => ({
@@ -197,7 +186,7 @@ export class PagesModule {
       title: page.title,
       length: page.length,
       touched: page.touched,
-      lastrevid: page.lastrevid
+      lastrevid: page.lastrevid,
     }));
   }
 
@@ -207,7 +196,10 @@ export class PagesModule {
    * @param limit - Maximum number of revisions to return (default: 10)
    * @returns Array of revision information objects
    */
-  async getPageRevisions(title: string, limit: number = 10): Promise<RevisionInfo[]> {
+  async getPageRevisions(
+    title: string,
+    limit: number = 10,
+  ): Promise<RevisionInfo[]> {
     const data = await this.client.makeRequest<any>({
       action: "query",
       format: "json",
@@ -215,7 +207,7 @@ export class PagesModule {
       prop: "revisions",
       rvprop: "ids|timestamp|user|comment|contentformat|contentmodel",
       rvlimit: limit.toString(),
-      formatversion: "2"
+      formatversion: "2",
     });
 
     const page = data.query.pages[0];
@@ -228,7 +220,7 @@ export class PagesModule {
       timestamp: rev.timestamp,
       comment: rev.comment,
       contentformat: rev.contentformat,
-      contentmodel: rev.contentmodel
+      contentmodel: rev.contentmodel,
     }));
   }
 }

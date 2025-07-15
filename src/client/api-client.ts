@@ -29,8 +29,11 @@ export class FandomApiClient {
    */
   private shouldUsePost(params: Record<string, string>): boolean {
     const paramCount = Object.keys(params).length;
-    const totalLength = Object.entries(params).reduce((sum, [key, value]) => sum + key.length + value.length, 0);
-    
+    const totalLength = Object.entries(params).reduce(
+      (sum, [key, value]) => sum + key.length + value.length,
+      0,
+    );
+
     return paramCount > 10 || totalLength > 1500;
   }
 
@@ -42,7 +45,7 @@ export class FandomApiClient {
    */
   async makeRequest<T>(params: Record<string, string>): Promise<T> {
     const usePost = this.shouldUsePost(params);
-    
+
     if (usePost) {
       // Use POST request
       const formData = new URLSearchParams();
@@ -51,18 +54,18 @@ export class FandomApiClient {
       });
 
       const res = await fetch(this.baseUrl, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: formData.toString()
+        body: formData.toString(),
       });
 
       if (!res.ok) {
         throw new Error(`Request failed: ${res.status} ${res.statusText}`);
       }
-      
-      return await res.json() as T;
+
+      return (await res.json()) as T;
     } else {
       // Use GET request
       const url = new URL(this.baseUrl);
@@ -74,13 +77,15 @@ export class FandomApiClient {
       if (!res.ok) {
         throw new Error(`Request failed: ${res.status} ${res.statusText}`);
       }
-      
-      return await res.json() as T;
+
+      return (await res.json()) as T;
     }
   }
 
-  async makeMultipleRequests<T>(requests: Record<string, string>[]): Promise<T[]> {
-    const promises = requests.map(params => this.makeRequest<T>(params));
+  async makeMultipleRequests<T>(
+    requests: Record<string, string>[],
+  ): Promise<T[]> {
+    const promises = requests.map((params) => this.makeRequest<T>(params));
     return Promise.all(promises);
   }
 }

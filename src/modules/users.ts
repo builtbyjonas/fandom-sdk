@@ -24,7 +24,7 @@ export class UsersModule {
       list: "users",
       ususers: username,
       usprop: "blockinfo|groups|editcount|registration|rights",
-      formatversion: "2"
+      formatversion: "2",
     });
 
     const user = data.query.users[0];
@@ -39,7 +39,7 @@ export class UsersModule {
       rights: user.rights || [],
       blockedby: user.blockedby,
       blockreason: user.blockreason,
-      blockexpiry: user.blockexpiry
+      blockexpiry: user.blockexpiry,
     };
   }
 
@@ -49,14 +49,17 @@ export class UsersModule {
    * @param limit - Maximum number of contributions to return (default: 10)
    * @returns Array of user contributions
    */
-  async getUserContributions(username: string, limit: number = 10): Promise<any[]> {
+  async getUserContributions(
+    username: string,
+    limit: number = 10,
+  ): Promise<any[]> {
     const data = await this.client.makeRequest<any>({
       action: "query",
       format: "json",
       list: "usercontribs",
       ucuser: username,
       uclimit: limit.toString(),
-      ucprop: "ids|title|timestamp|comment|size|flags|tags"
+      ucprop: "ids|title|timestamp|comment|size|flags|tags",
     });
 
     return data.query.usercontribs;

@@ -12,7 +12,7 @@ export * from "./types/index.js";
  */
 export class FandomSDK {
   private client: FandomApiClient;
-  
+
   /** Module for page-related operations */
   public pages: PagesModule;
   /** Module for category-related operations */
@@ -58,7 +58,11 @@ export async function getFullPageDetails(wiki: string, title: string) {
  * @returns Array of category members
  * @deprecated Use `new FandomSDK(wiki).categories.getCategoryMembers(category, limit)` instead
  */
-export async function getCategoryMembers(wiki: string, category: string, limit: number = 10) {
+export async function getCategoryMembers(
+  wiki: string,
+  category: string,
+  limit: number = 10,
+) {
   const sdk = new FandomSDK(wiki);
   return sdk.categories.getCategoryMembers(category, limit);
 }
@@ -71,7 +75,11 @@ export async function getCategoryMembers(wiki: string, category: string, limit: 
  * @returns Array of search results
  * @deprecated Use `new FandomSDK(wiki).search.searchPages(query, limit)` instead
  */
-export async function searchPages(wiki: string, query: string, limit: number = 5) {
+export async function searchPages(
+  wiki: string,
+  query: string,
+  limit: number = 5,
+) {
   const sdk = new FandomSDK(wiki);
   return sdk.search.searchPages(query, limit);
 }
