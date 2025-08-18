@@ -16,7 +16,7 @@ Fixes #(issue number) or Related to #(issue number)
 - [ ] Documentation update
 - [ ] Performance improvement
 - [ ] Code refactoring
-- [ ] Other (please describe): ******\_\_\_******
+- [ ] Other (please describe): **\*\***\_\_\_**\*\***
 
 ## Changes Made
 

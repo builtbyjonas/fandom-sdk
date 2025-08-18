@@ -24,7 +24,7 @@ A clear and concise description of any alternative solutions or features you've 
 - [ ] Individual developers
 - [ ] Library maintainers
 - [ ] Application developers
-- [ ] Other: ******\_\_\_******
+- [ ] Other: **\*\***\_\_\_**\*\***
 
 **What would be the impact?**
 
@@ -32,7 +32,7 @@ A clear and concise description of any alternative solutions or features you've 
 - [ ] Adds new functionality
 - [ ] Improves developer experience
 - [ ] Improves documentation
-- [ ] Other: ******\_\_\_******
+- [ ] Other: **\*\***\_\_\_**\*\***
 
 ## Implementation
 
