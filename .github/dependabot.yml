@@ -18,7 +18,6 @@ updates:
     labels:
       - "dependencies"
       - "automated"
-    target-branch: "development"
 
   # Enable version updates for GitHub Actions
   - package-ecosystem: "github-actions"
@@ -38,4 +37,3 @@ updates:
     labels:
       - "github-actions"
       - "automated"
-    target-branch: "development"
