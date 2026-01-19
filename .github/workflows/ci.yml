@@ -24,7 +24,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install Bun
-        uses: oven-sh/setup-bun@v2.0.2
+        uses: oven-sh/setup-bun@v2.1.2
         with:
           bun-version: latest
 
@@ -51,7 +51,7 @@ jobs:
           node-version: "18.x"
 
       - name: Install Bun
-        uses: oven-sh/setup-bun@v2.0.2
+        uses: oven-sh/setup-bun@v2.1.2
         with:
           bun-version: latest
 
@@ -81,7 +81,7 @@ jobs:
           node-version: "18.x"
 
       - name: Install Bun
-        uses: oven-sh/setup-bun@v2.0.2
+        uses: oven-sh/setup-bun@v2.1.2
         with:
           bun-version: latest
 
@@ -105,7 +105,7 @@ jobs:
           node-version: "18.x"
 
       - name: Install Bun
-        uses: oven-sh/setup-bun@v2.0.2
+        uses: oven-sh/setup-bun@v2.1.2
         with:
           bun-version: latest
 
