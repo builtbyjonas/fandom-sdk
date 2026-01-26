@@ -1,3 +1,6 @@
+> [!WARNING]
+> **fandom-sdk** has been deprecated in favor of [fandom.js](https://github.com/fandomjs/fandom.js).
+
 # fandom-sdk
 
 > 🧠 A lightweight TypeScript SDK to fetch data from any [Fandom](https://www.fandom.com/) wiki via the MediaWiki API.
